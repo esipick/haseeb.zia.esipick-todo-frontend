@@ -3,5 +3,5 @@ export class taskList{
     todo: string = '';
     priority: string = '';
     status: string = '';
-    percent: string = '';
+    percentage: number = 0;
 }

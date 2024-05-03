@@ -3,19 +3,19 @@
         <p class="h3 text-muted"><strong>Add Todo</strong></p>
     </div>
     <div class="row justify-content-center">
-        <form >
+        <form [formGroup]="addTodo">
             <div class="row mt-3">
                 <div class="col-6">
                     <div class="col-auto">
                         <label for="todo">Todo</label>
-                        <input type="text" id="todo" class="form-control">
+                        <input type="text" id="todo" class="form-control" formControlName="todo">
                     </div>
                 </div>
                     
                 <div class="col-6">
                     <div class="col-auto">
                         <label>Priority</label>
-                        <select class="form-select" >
+                        <select class="form-select" formControlName="priority">
                             <option value="high">Hight</option>
                             <option value="medium">Medium</option>
                             <option value="low">Low</option>
@@ -27,7 +27,7 @@
                 <div class="col-6">
                     <div class="col-auto">
                         <label>Status</label>
-                        <select class="form-select" >
+                        <select class="form-select" formControlName="status">
                             <option value="todo">To Do</option>
                             <option value="inProgress">In Progress</option>
                             <option value="done">Done</option>
@@ -37,14 +37,14 @@
                 <div class="col-6">
                     <div class="col-auto">
                         <label>Percentage(%)</label>
-                        <input type="number" id="todo" class="form-control">
+                        <input type="number" class="form-control" formControlName="percentage">
                     </div>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-6">
                     <div class="col-auto">
-                        <button class="btn btn-primary" >Submit</button>
+                        <button class="btn btn-primary" (click)="submit()" >Submit</button>
                     </div>
                 </div>
             </div>

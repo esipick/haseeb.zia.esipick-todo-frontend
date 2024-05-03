@@ -20,8 +20,8 @@ getTaskById() : Observable<any>{
   return this.http.get(this.server+'get-task');
 }
 
-addTask() : Observable<any>{
-  return this.http.get(this.server+'add-task');
+addTask(obj: any) : Observable<any>{
+  return this.http.post(this.server+'add-task', obj);
 }
 
 updateTask() : Observable<any>{
