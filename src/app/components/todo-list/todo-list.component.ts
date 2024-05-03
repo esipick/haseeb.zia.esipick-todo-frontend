@@ -39,7 +39,21 @@ getTodoList(){
       priority:'high',
       status:'inProgress',
       percentage:10
-  }
+  },
+    {
+      id:2,
+      todo:'asd asd a sd a sd',
+      priority:'high',
+      status:'inProgress',
+      percentage:10
+  },
+    {
+      id:3,
+      todo:'asd asd a sd a sd',
+      priority:'high',
+      status:'inProgress',
+      percentage:10
+  },
 ]
   // this.crud.getTasks().subscribe((data : httpResponse<taskList[]>)=>{
   //   if(!data.success){
@@ -73,7 +87,6 @@ deleteTodo(todo: taskList){
 
 selection = new SelectionModel<taskList>(true, []);
 isAllSelected(): boolean {
-  this.numSelected = this.selection.selected.length;
   this.numRows = this.todoList.length;
   return this.numSelected === this.numRows;
 }
@@ -81,16 +94,16 @@ isAllSelected(): boolean {
 masterToggle() {
   if (this.isAllSelected()) {
     this.selection.clear(); 
-    this.numSelected = 0; 
   } else {
     this.todoList.forEach(row => this.selection.select(row));
   }
+  this.count();
 }
 
 onSelection(e: any, row: any){
   setTimeout(() => {
     e ? this.selection.toggle(row) : null;
-    this.numSelected = this.selection.selected.length;
+    this.count();
     this.cdr.detectChanges();
   });
 }
@@ -101,9 +114,21 @@ onMasterToggle() {
   });
 }
 deleteSelectedFields() {
+  let todoIds = this.selection.selected.map(selectedRow => selectedRow.id);
+
+  this.crud.deleteTask(todoIds).subscribe((data: httpResponse<any>)=>{
+    if(!data.success){
+      return;
+    }
+  })
   this.selection.clear();
+  this.getTodoList();
+  this.count();
 }
 
+count(){
+  this.numSelected = this.selection.selected.length;
+}
 
 get priority(): typeof Priority {
   return Priority;

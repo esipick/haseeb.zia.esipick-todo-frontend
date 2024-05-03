@@ -16,8 +16,8 @@ getTasks() : Observable<any>{
   return this.http.get<any>(this.server+'get-tasks');
 }
 
-getTaskById() : Observable<any>{
-  return this.http.get(this.server+'get-task');
+getTaskById(id: number) : Observable<any>{
+  return this.http.get(this.server+`get-task/:${id}`);
 }
 
 addTask(obj: any) : Observable<any>{
@@ -28,10 +28,9 @@ updateTask() : Observable<any>{
   return this.http.get(this.server+'update-task');
 }
 
-deleteTask() : Observable<any>{
-  return this.http.get(this.server+'delete-task');
+deleteTask(todoIds: any[]) : Observable<any>{
+  return this.http.post(this.server+'delete-task',todoIds);
 }
 
-//  delete for bulk 
 
 }

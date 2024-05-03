@@ -34,12 +34,12 @@ getTodoById(){
       percentage:10
   };
 
-  // this.crud.getTaskById().subscribe((data: httpResponse<any>)=>{
+  this.crud.getTaskById(this.data).subscribe((data: httpResponse<any>)=>{
   this.isLoading = false;
-  //   if(data.success){
-  //     this.todoDetail = data.data;
-  //   }
-  // })
+    if(data.success){
+      this.todoDetail = data.data;
+    }
+  })
 }
 
 close(){
