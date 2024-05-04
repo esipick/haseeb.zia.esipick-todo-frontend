@@ -13,98 +13,105 @@
         </div>
     </div>
     <div class="row mt-4">
-        <div class="scroll-container" infiniteScroll
-        [infiniteScrollDistance]="2"
-        [infiniteScrollThrottle]="50"
-        (scrolled)="onScroll()"
-        [scrollWindow]="false">
-            <table mat-table [dataSource]="todoList" matSort (matSortChange)="sortData($event)"
-            class="todo-table">
-    
-        <ng-container matColumnDef="select">
-            <th mat-header-cell *matHeaderCellDef>
-                <mat-checkbox (change)="onMasterToggle()"
-                  [checked]="selection.hasValue() && isAllSelected()"
-                  [indeterminate]="selection.hasValue() && !isAllSelected()">
-                </mat-checkbox>
-            </th>
-            <td  mat-cell *matCellDef="let row">
-                <mat-checkbox (click)="$event.stopPropagation()"
-                            (change)="onSelection($event,row)"
-                            [checked]="selection.isSelected(row)">
-                </mat-checkbox>
-                
+       
+            <div class="scroll-container" infiniteScroll
+            [infiniteScrollDistance]="2"
+            [infiniteScrollThrottle]="50"
+            (scrolled)="onScroll()"
+            [scrollWindow]="false">
+                <table mat-table [dataSource]="todoList" matSort (matSortChange)="sortData($event)"
+                class="todo-table">
+        
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="onMasterToggle()"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                </th>
+                <td  mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="onSelection($event,row)"
+                                [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                    
+                </td>
+                </ng-container>
+            <ng-container matColumnDef="todo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                Todo
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <span class="title-span">
+                        {{element.todo ? (element.todo | titlecase) : 'N/A'}}
+                    </span>
+                 </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="priority">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Priority
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <span class="p-span" [ngClass]="
+                    {
+                        'low': element.priority == priority.LOW,
+                        'medium': element.priority == priority.MEDIUM,
+                        'high': element.priority == priority.HIGH
+                    }
+                    ">
+                    <i class="fa " [ngClass]="element.priority == priority.HIGH ? 'fa-arrow-up' : 'fa-arrow-down'" aria-hidden="true"></i>
+                        {{element.priority ? (element.priority | titlecase) : 'N/A'}}
+                    </span>
+                </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Status
+                </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <span [ngClass]="{
+                        'badge-i': element.status == status.INPROGRESS,
+                        'badge-t': element.status == status.TODO,
+                        'badge-d': element.status == status.DONE
+                    }">
+                        {{
+                        element.status == status.INPROGRESS ? 'In Progress' : element.status == status.TODO ? 'To Do' : (element.status | titlecase)
+                         }} 
+                    </span>
             </td>
             </ng-container>
-        <ng-container matColumnDef="todo">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header >
-            Todo
-            </th>
-            <td mat-cell *matCellDef="let element">
-                <span class="title-span">
-                    {{element.todo ? (element.todo | titlecase) : 'N/A'}}
-                </span>
-             </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="priority">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Priority
-            </th>
-            <td mat-cell *matCellDef="let element">
-                <span class="p-span" [ngClass]="
-                {
-                    'low': element.priority == priority.LOW,
-                    'medium': element.priority == priority.MEDIUM,
-                    'high': element.priority == priority.HIGH
-                }
-                ">
-                <i class="fa " [ngClass]="element.priority == priority.HIGH ? 'fa-arrow-up' : 'fa-arrow-down'" aria-hidden="true"></i>
-                    {{element.priority ? (element.priority | titlecase) : 'N/A'}}
-                </span>
-            </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Status
-            </th>
-            <td mat-cell *matCellDef="let element"> 
-                <span [ngClass]="{
-                    'badge-i': element.status == status.INPROGRESS,
-                    'badge-t': element.status == status.TODO,
-                    'badge-d': element.status == status.DONE
-                }">
-                    {{
-                    element.status == status.INPROGRESS ? 'In Progress' : element.status == status.TODO ? 'To Do' : (element.status | titlecase)
-                     }} 
-                </span>
-        </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="percentage">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Percent (%)
-            </th>
-            <td mat-cell *matCellDef="let element"> <span class="title-span">{{element.percentage}}</span></td>
-        </ng-container>
-    
-        <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef> Actions </th>
-            <td mat-cell *matCellDef="let element"> 
-                <button mat-icon-button (click)="viewTodo(element)">
-                    <i class="fa fa-eye"></i>
-                </button> 
-                    <button mat-icon-button  (click)="editTodo(element)">
-                        <i class="fa fas fa-edit"></i>
+        
+            <ng-container matColumnDef="percentage">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Percent (%)
+                </th>
+                <td mat-cell *matCellDef="let element"> <span class="title-span">{{element.percentage}}</span></td>
+            </ng-container>
+        
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <button mat-icon-button (click)="viewTodo(element)">
+                        <i class="fa fa-eye"></i>
                     </button> 
-             </td>
-        </ng-container>
-    
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row class="mat-row" *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        </div>
+                        <button mat-icon-button  (click)="editTodo(element)">
+                            <i class="fa fas fa-edit"></i>
+                        </button> 
+                 </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row class="mat-row" *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            @if(todoList && todoList.length == 0){
+            <div class="noRecord-div">
+                <h2>No Record Found</h2>
+                <p>Plase add Task to view in lisiting</p>
+            </div>
+        }
+            </div>
 
     </div>
 </div>
