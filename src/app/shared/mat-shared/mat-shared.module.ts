@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatSortModule } from '@angular/material/sort';
 
 const matModule = [
   MatTableModule,
@@ -17,7 +18,8 @@ const matModule = [
   MatInputModule,
   MatFormFieldModule,
   MatSelectModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatSortModule
 ];
 @NgModule({
   declarations: [],

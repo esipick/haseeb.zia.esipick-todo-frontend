@@ -8,17 +8,21 @@ import { TodoActionsComponent } from '../todo-actions/todo-actions.component';
 import { TodoDetailComponent } from '../todo-detail/todo-detail.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
+import { CommonModule } from '@angular/common';
+import { getListParams } from '../../models/get-list-params';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
-  imports: [MatSharedModule],
+  imports: [MatSharedModule,CommonModule,InfiniteScrollModule],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss'
 })
 export class TodoListComponent implements OnInit {
   numSelected: number = 0;
   numRows: number = 0;
+  getListParams : getListParams = new getListParams();
   todoList: taskList[] = [];
   displayedColumns = ['select','todo', 'priority', 'status', 'percentage','actions'];
 
@@ -32,44 +36,46 @@ ngOnInit(): void {
 
 
 getTodoList(){
-  this.todoList = [
-    {
-      id:1,
-      todo:'asd asd a sd a sd',
-      priority:'high',
-      status:'inProgress',
-      percentage:10
-  },
-    {
-      id:2,
-      todo:'asd asd a sd a sd',
-      priority:'high',
-      status:'inProgress',
-      percentage:10
-  },
-    {
-      id:3,
-      todo:'asd asd a sd a sd',
-      priority:'high',
-      status:'inProgress',
-      percentage:10
-  },
-]
-  // this.crud.getTasks().subscribe((data : httpResponse<taskList[]>)=>{
-  //   if(!data.success){
-  //     return;
-  //   }
-  //   this.todoList = data.data;
-  // })
+  
+  if(this.getListParams.page == 1){
+    this.todoList = [];
+  }
+  this.crud.getTasks(this.getListParams).subscribe((data : httpResponse<taskList[]>)=>{
+    if(!data.success){
+      return;
+    }
+    this.todoList = [...this.todoList, ...data.data];
+  })
+}
+
+onScroll(){
+  this.getListParams.page += 1;
+  this.getTodoList();  
+}
+
+sortData(event: any) {
+  this.getListParams = new getListParams();
+  event.direction = event.direction || 'asc'
+  this.getListParams.sortBy = event.active;
+  this.getListParams.sortDirection = event.direction;
+  
+  this.getTodoList(); 
 }
 
 addTodo(){
   this.dialog.open(TodoActionsComponent,{
     width:'600px',
     data: null
+  }).afterClosed().subscribe((data)=>{
+    if(data){
+      this.resetLisit();
+    }
   });
 }
-
+resetLisit(){
+  this.getListParams = new getListParams();
+  this.getTodoList();
+}
 viewTodo(todo: taskList){
 
   this.dialog.open(TodoDetailComponent,{
@@ -80,10 +86,17 @@ viewTodo(todo: taskList){
 }
 editTodo(todo: taskList){
 
-}
-deleteTodo(todo: taskList){
+this.dialog.open(TodoActionsComponent,{
+  width:'600px',
+  data: todo
+}).afterClosed().subscribe((data)=>{
+  if(data){
+    this.resetLisit()
+  }
+})
 
 }
+
 
 selection = new SelectionModel<taskList>(true, []);
 isAllSelected(): boolean {
@@ -129,6 +142,7 @@ deleteSelectedFields() {
 count(){
   this.numSelected = this.selection.selected.length;
 }
+
 
 get priority(): typeof Priority {
   return Priority;

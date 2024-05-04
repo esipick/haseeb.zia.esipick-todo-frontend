@@ -1,6 +1,12 @@
 <div class="container mt-4 mb-4">
     <div class="row">
-        <p class="h3 text-muted"><strong>Add Todo</strong></p>
+        <p class="h3 text-muted"><strong>
+            @if(data){
+                Edit
+            }@else{
+                Add
+            }
+            Todo</strong></p>
     </div>
     <div class="row justify-content-center">
         <form [formGroup]="addTodo">
@@ -10,6 +16,9 @@
                         <label for="todo">Todo</label>
                         <input type="text" id="todo" class="form-control" formControlName="todo">
                     </div>
+                    @if(getControls['todo'] && getControls['todo'].touched && getControls['todo'].invalid){
+                        <p class="text-danger">Please Enter your task.</p>
+                    }
                 </div>
                     
                 <div class="col-6">
@@ -21,6 +30,9 @@
                             <option value="low">Low</option>
                           </select>
                     </div>
+                    @if(getControls['priority'] && getControls['priority'].touched && getControls['priority'].invalid){
+                        <p class="text-danger">Please select task priority.</p>
+                    }
                 </div>
             </div>
             <div class="row mt-3">
@@ -33,18 +45,28 @@
                             <option value="done">Done</option>
                           </select>
                     </div>
+                    @if(getControls['status'] && getControls['status'].touched && getControls['status'].invalid){
+                        <p class="text-danger">Please select task status.</p>
+                    }
                 </div>
                 <div class="col-6">
                     <div class="col-auto">
                         <label>Percentage(%)</label>
                         <input type="number" class="form-control" formControlName="percentage">
                     </div>
+                    @if(getControls['percentage'] && getControls['percentage'].touched && getControls['percentage'].invalid){
+                        <p class="text-danger">Please Enter percentage.</p>
+                    }
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-6">
                     <div class="col-auto">
-                        <button class="btn btn-primary" (click)="submit()" >Submit</button>
+                        @if(data){
+                            <button [disabled]="!addTodo.valid" class="btn btn-primary" (click)="edit()" >Edit</button>
+                        }@else{
+                            <button [disabled]="!addTodo.valid" class="btn btn-primary" (click)="submit()" >Submit</button>
+                        }
                     </div>
                 </div>
             </div>

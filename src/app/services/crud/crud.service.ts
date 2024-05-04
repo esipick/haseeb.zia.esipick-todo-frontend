@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { taskList } from '../../models/task-list.model';
 import { httpResponse } from '../../models/http-response.model';
+import { objToParams } from '../../shared/http-utils/objToParama';
 
 @Injectable({
   providedIn: 'root'
@@ -12,20 +13,22 @@ export class CrudService {
 
   server: string = 'http://localhost:3000/';
 
-getTasks() : Observable<any>{
-  return this.http.get<any>(this.server+'get-tasks');
+getTasks(obj: any) : Observable<any>{
+
+  let queryParams = objToParams(obj);
+  return this.http.get<any>(this.server+'get-tasks'+queryParams);
 }
 
 getTaskById(id: number) : Observable<any>{
-  return this.http.get(this.server+`get-task/:${id}`);
+  return this.http.get(this.server+`get-task/${id}`);
 }
 
 addTask(obj: any) : Observable<any>{
   return this.http.post(this.server+'add-task', obj);
 }
 
-updateTask() : Observable<any>{
-  return this.http.get(this.server+'update-task');
+updateTask(obj: any) : Observable<any>{
+  return this.http.post(this.server+'update-task', obj);
 }
 
 deleteTask(todoIds: any[]) : Observable<any>{
