@@ -64,7 +64,7 @@ sortData(event: any) {
 
 addTodo(){
   this.dialog.open(TodoActionsComponent,{
-    width:'600px',
+    width:'700px',
     data: null
   }).afterClosed().subscribe((data)=>{
     if(data){
@@ -79,7 +79,7 @@ resetLisit(){
 viewTodo(todo: taskList){
 
   this.dialog.open(TodoDetailComponent,{
-    width:'600px',
+    width:'700px',
     data:todo.id
   })
 
@@ -87,7 +87,7 @@ viewTodo(todo: taskList){
 editTodo(todo: taskList){
 
 this.dialog.open(TodoActionsComponent,{
-  width:'600px',
+  width:'700px',
   data: todo
 }).afterClosed().subscribe((data)=>{
   if(data){

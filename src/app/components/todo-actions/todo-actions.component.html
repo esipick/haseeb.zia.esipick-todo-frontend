@@ -1,4 +1,4 @@
-<div class="container mt-4 mb-4">
+<div class="container mt-4 mb-4 dialog">
     <div class="row">
         <p class="h3 text-muted"><strong>
             @if(data){
@@ -15,24 +15,25 @@
                     <div class="col-auto">
                         <label for="todo">Todo</label>
                         <input type="text" id="todo" class="form-control" formControlName="todo">
+                        @if(getControls['todo'] && getControls['todo'].touched && getControls['todo'].invalid){
+                            <p class="text-danger">Please Enter your task.</p>
+                        }
                     </div>
-                    @if(getControls['todo'] && getControls['todo'].touched && getControls['todo'].invalid){
-                        <p class="text-danger">Please Enter your task.</p>
-                    }
                 </div>
                     
                 <div class="col-6">
                     <div class="col-auto">
                         <label>Priority</label>
                         <select class="form-select" formControlName="priority">
+                            <option value="" readonly>Select Priority</option>
                             <option value="high">Hight</option>
                             <option value="medium">Medium</option>
                             <option value="low">Low</option>
                           </select>
+                          @if(getControls['priority'] && getControls['priority'].touched && getControls['priority'].invalid){
+                              <p class="text-danger">Please select task priority.</p>
+                          }
                     </div>
-                    @if(getControls['priority'] && getControls['priority'].touched && getControls['priority'].invalid){
-                        <p class="text-danger">Please select task priority.</p>
-                    }
                 </div>
             </div>
             <div class="row mt-3">
@@ -40,32 +41,33 @@
                     <div class="col-auto">
                         <label>Status</label>
                         <select class="form-select" formControlName="status">
+                            <option value="" readonly>Select Status</option>
                             <option value="todo">To Do</option>
                             <option value="inProgress">In Progress</option>
                             <option value="done">Done</option>
                           </select>
+                          @if(getControls['status'] && getControls['status'].touched && getControls['status'].invalid){
+                              <p class="text-danger">Please select task status.</p>
+                          }
                     </div>
-                    @if(getControls['status'] && getControls['status'].touched && getControls['status'].invalid){
-                        <p class="text-danger">Please select task status.</p>
-                    }
                 </div>
                 <div class="col-6">
                     <div class="col-auto">
                         <label>Percentage(%)</label>
                         <input type="number" class="form-control" formControlName="percentage">
+                        @if(getControls['percentage'] && getControls['percentage'].touched && getControls['percentage'].invalid){
+                            <p class="text-danger">Please Enter percentage.</p>
+                        }
                     </div>
-                    @if(getControls['percentage'] && getControls['percentage'].touched && getControls['percentage'].invalid){
-                        <p class="text-danger">Please Enter percentage.</p>
-                    }
                 </div>
             </div>
-            <div class="row mt-3">
+            <div class="row mt-4">
                 <div class="col-6">
                     <div class="col-auto">
                         @if(data){
-                            <button [disabled]="!addTodo.valid" class="btn btn-primary" (click)="edit()" >Edit</button>
+                            <button [disabled]="!addTodo.valid" class="theme-btn" (click)="edit()" >Edit</button>
                         }@else{
-                            <button [disabled]="!addTodo.valid" class="btn btn-primary" (click)="submit()" >Submit</button>
+                            <button [disabled]="!addTodo.valid" class="theme-btn" (click)="submit()" >Submit</button>
                         }
                     </div>
                 </div>

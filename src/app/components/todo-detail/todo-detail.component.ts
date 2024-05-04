@@ -4,11 +4,12 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { httpResponse } from '../../models/http-response.model';
 import { taskList } from '../../models/task-list.model';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-todo-detail',
   standalone: true,
-  imports: [NgxSkeletonLoaderModule],
+  imports: [NgxSkeletonLoaderModule,CommonModule],
   templateUrl: './todo-detail.component.html',
   styleUrl: './todo-detail.component.scss'
 })
@@ -45,4 +46,24 @@ getTodoById(){
 close(){
   this.dialogRef.close();
 }
+
+get priority(): typeof Priority {
+  return Priority;
+}
+
+get status(): typeof Status {
+  return Status;
+}
+}
+
+enum Priority{
+  HIGH = 'high',
+  MEDIUM = 'medium',
+  LOW = 'low',
+}
+
+enum Status{
+  TODO = 'todo',
+  INPROGRESS = 'inProgress',
+  DONE = 'done',
 }

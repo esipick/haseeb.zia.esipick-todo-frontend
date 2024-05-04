@@ -62,3 +62,36 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-family: sans-serif;
   font-size: 30px;
 }
+
+.p-span{
+  font-size: 15px;
+  font-weight: 500;
+}
+
+
+.badge-i{
+  color: rgb(6, 99, 204);
+  background-color: #bcdcfd;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+.badge-t{
+color: #373a3d;
+background-color: #dbdddf;
+padding: 10px 15px;
+  border-radius: 5px;
+}
+.badge-d{
+  color: rgb(25, 194, 25);
+  background-color: #cbf7cb;
+  padding: 10px 15px;
+  border-radius: 5px;
+
+}
+
+.title-span{
+  color: rgb(55, 67, 105);
+  font-size: 16px;
+  font-family: sans-serif;
+  font-weight: 500;
+}
