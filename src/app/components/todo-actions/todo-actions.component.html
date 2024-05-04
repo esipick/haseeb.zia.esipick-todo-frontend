@@ -14,7 +14,7 @@
                 <div class="col-6">
                     <div class="col-auto">
                         <label for="todo">Todo</label>
-                        <input type="text" id="todo" class="form-control" formControlName="todo">
+                        <input type="text" id="todo" class="form-control" placeholder="e.g: My task here..." formControlName="todo">
                         @if(getControls['todo'] && getControls['todo'].touched && getControls['todo'].invalid){
                             <p class="text-danger">Please Enter your task.</p>
                         }
@@ -54,7 +54,7 @@
                 <div class="col-6">
                     <div class="col-auto">
                         <label>Percentage(%)</label>
-                        <input type="number" class="form-control" formControlName="percentage">
+                        <input type="number" class="form-control" formControlName="percentage" placeholder="e.g: 10">
                         @if(getControls['percentage'] && getControls['percentage'].touched && getControls['percentage'].invalid){
                             <p class="text-danger">Please Enter percentage.</p>
                         }

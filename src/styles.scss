@@ -52,6 +52,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   &:hover{
     background-color: #79ecec;
   }
+  &:disabled {
+    background-color: #79ecec;
+    color: #999; 
+    cursor: not-allowed; 
+  }
 }
 .ml{
   margin-left: 10px;
@@ -94,4 +99,8 @@ padding: 10px 15px;
   font-size: 16px;
   font-family: sans-serif;
   font-weight: 500;
+}
+
+.fa {
+  font-size: 16px; 
 }
