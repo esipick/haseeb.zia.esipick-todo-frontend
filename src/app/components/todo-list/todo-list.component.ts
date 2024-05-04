@@ -91,7 +91,7 @@ this.dialog.open(TodoActionsComponent,{
   data: todo
 }).afterClosed().subscribe((data)=>{
   if(data){
-    this.resetLisit()
+    this.resetLisit();
   }
 })
 
@@ -135,7 +135,7 @@ deleteSelectedFields() {
     }
   })
   this.selection.clear();
-  this.getTodoList();
+  this.resetLisit()
   this.count();
 }
 
@@ -148,10 +148,20 @@ get priority(): typeof Priority {
   return Priority;
 }
 
+get status(): typeof Status {
+  return Status;
+}
+
 }
 
 enum Priority{
-  HIGHT = 'high',
-  MEDIUM = 'meduim',
+  HIGH = 'high',
+  MEDIUM = 'medium',
   LOW = 'low',
+}
+
+enum Status{
+  TODO = 'todo',
+  INPROGRESS = 'inProgress',
+  DONE = 'done',
 }

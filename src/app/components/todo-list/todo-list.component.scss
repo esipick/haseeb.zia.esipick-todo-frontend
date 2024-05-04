@@ -1,11 +1,12 @@
 .scroll-container {
-    height: 300px; 
-    overflow-y: scroll; 
+    height: 400px; 
+    overflow-y: auto;
+    padding: 0px; 
   }
 
   /* Width */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
   
   /* Track */
@@ -15,10 +16,97 @@
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #888; 
+    background: #cdd8d8; 
   }
   
   /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+//   ::-webkit-scrollbar-thumb:hover {
+//     background: rgb(238, 239, 240); 
+//   }
+  
+  .low{
+   color: rgb(6, 122, 6); 
   }
+  
+  .medium{
+   color: rgb(240, 240, 6); 
+  }
+  
+  .high{
+   color: red; 
+  }
+
+  .p-span{
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .title-span{
+    color: rgb(55, 67, 105);
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: 700;
+  }
+
+  .badge-i{
+      color: rgb(6, 99, 204);
+      background-color: #bcdcfd;
+      padding: 10px 15px;
+      border-radius: 5px;
+    }
+    .badge-t{
+    color: #373a3d;
+    background-color: #dbdddf;
+    padding: 10px 15px;
+      border-radius: 5px;
+}
+.badge-d{
+      color: rgb(25, 194, 25);
+      background-color: #cbf7cb;
+      padding: 10px 15px;
+      border-radius: 5px;
+
+  }
+::ng-deep{
+    .todo-table{
+        // height: 400px;
+      th,
+      td {
+        vertical-align: middle !important;
+        border: none !important;
+      }
+      
+      thead{
+          tr{
+            height: 60px;
+            background: #42BEBE;
+            th{
+                font-size: 16px;
+                color: white;
+                padding: 10px;
+                text-transform: uppercase;
+            }
+          }
+      }
+      tbody {
+        tr {
+          height: 52px;
+          border-bottom: 1px solid #edf2f7;
+          &:hover {
+            box-shadow: inset 4px 0 0px 0px rgb(76 111 255);
+          }
+    
+          td {
+            font-size: 14px;
+            color: #425466;
+            padding: 10px;
+          }
+    
+          &:hover {
+            background: #edf2f7;
+          }
+          
+        }
+      }
+    }
+    
+}

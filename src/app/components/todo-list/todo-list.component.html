@@ -2,12 +2,12 @@
     <div class="row">
         <div class="d-flex justify-content-between">
             <div>
-                <p class="h3"> <strong class="text-muted">Todo(s)</strong></p>
+                <p class="theme-h3" > <strong>Todo(s)</strong></p>
             </div>
             <div>
-                <button class="btn btn-primary" (click)="addTodo()">Add Todo</button>
+                <button class="theme-btn" (click)="addTodo()"><i class="fa fa-plus"></i> Add Todo</button>
                 @if(numSelected > 0){
-                    <button class="btn btn-primary" (click)="deleteSelectedFields()">Delete Todo ({{numSelected}})</button>
+                    <button class="theme-btn ml" (click)="deleteSelectedFields()"><i class="fa fa-trash"></i> Delete Todo ({{numSelected}})</button>
                 }
             </div>
         </div>
@@ -19,7 +19,7 @@
         (scrolled)="onScroll()"
         [scrollWindow]="false">
             <table mat-table [dataSource]="todoList" matSort (matSortChange)="sortData($event)"
-            class="mat-elevation-z8">
+            class="todo-table">
     
         <ng-container matColumnDef="select">
             <th mat-header-cell *matHeaderCellDef>
@@ -28,7 +28,7 @@
                   [indeterminate]="selection.hasValue() && !isAllSelected()">
                 </mat-checkbox>
             </th>
-            <td mat-cell *matCellDef="let row">
+            <td  mat-cell *matCellDef="let row">
                 <mat-checkbox (click)="$event.stopPropagation()"
                             (change)="onSelection($event,row)"
                             [checked]="selection.isSelected(row)">
@@ -40,21 +40,46 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header >
             Todo
             </th>
-            <td mat-cell *matCellDef="let element"> {{element.todo}} </td>
+            <td mat-cell *matCellDef="let element">
+                <span class="title-span">
+                    {{element.todo ? (element.todo | titlecase) : 'N/A'}}
+                </span>
+             </td>
         </ng-container>
     
         <ng-container matColumnDef="priority">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
             Priority
             </th>
-            <td mat-cell *matCellDef="let element"> {{element.priority ? (element.priority) : 'N/A'}} </td>
+            <td mat-cell *matCellDef="let element">
+                <span class="p-span" [ngClass]="
+                {
+                    'low': element.priority == priority.LOW,
+                    'medium': element.priority == priority.MEDIUM,
+                    'high': element.priority == priority.HIGH
+                }
+                ">
+                <i class="fa " [ngClass]="element.priority == priority.HIGH ? 'fa-arrow-up' : 'fa-arrow-down'" aria-hidden="true"></i>
+                    {{element.priority ? (element.priority | titlecase) : 'N/A'}}
+                </span>
+            </td>
         </ng-container>
     
         <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
             Status
             </th>
-            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+            <td mat-cell *matCellDef="let element"> 
+                <span [ngClass]="{
+                    'badge-i': element.status == status.INPROGRESS,
+                    'badge-t': element.status == status.TODO,
+                    'badge-d': element.status == status.DONE
+                }">
+                    {{
+                    element.status == status.INPROGRESS ? 'In Progress' : element.status == status.TODO ? 'To Do' : (element.status | titlecase)
+                     }} 
+                </span>
+        </td>
         </ng-container>
     
         <ng-container matColumnDef="percentage">
@@ -77,7 +102,7 @@
         </ng-container>
     
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row class="mat-row" *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
         </div>
 
